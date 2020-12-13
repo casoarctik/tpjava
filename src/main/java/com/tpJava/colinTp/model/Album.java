@@ -1,5 +1,7 @@
 package com.tpJava.colinTp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,22 +10,29 @@ public class Album {
 
     //attribut
     @ManyToOne
-    @JoinColumn(name = "ArtistId")
+    @JoinColumn(name = "artistId")
     private Artist artist;
 
     //album id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AlbumId")
+    @Column(name = "id")
     Integer id;
 
     //album title
-    @Column(name = "Title")
     String title;
 
     // auto-generated constructor
     public Album(String title) {
         this.title = title;
+    }
+
+    public Album(Artist artist, String title) {
+        this.artist = artist;
+        this.title = title;
+    }
+
+    public Album() {
     }
 
     //auto-generated getter and setter

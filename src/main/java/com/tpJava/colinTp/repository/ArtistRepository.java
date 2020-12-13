@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 
-    @Query(value = "SELECT * FROM artist WHERE artist.name LIKE ('%':name'%')", nativeQuery = true)
+    @Query(value = "SELECT * FROM artist WHERE artist.name LIKE CONCAT ('%',:name,'%')", nativeQuery = true)
     List<Artist> findByNameWord(@Param("name")String name);
 
     Artist findByName(String name);

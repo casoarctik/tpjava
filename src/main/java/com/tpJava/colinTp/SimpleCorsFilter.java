@@ -1,4 +1,4 @@
-package com.ipiecoles.java.mdd050.security;
+package com.tpJava.colinTp;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;

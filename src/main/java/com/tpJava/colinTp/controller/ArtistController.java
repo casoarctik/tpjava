@@ -32,7 +32,7 @@ public class ArtistController {
 
     // delete artist
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteArtist(@PathVariable Integer id){
         artistService.deleteArtist(id);
     }

@@ -14,7 +14,7 @@ public class AlbumController {
     @Autowired
     AlbumService albumService;
 
-    //delete artist
+    //delete album
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAlbum(@PathVariable Integer id){

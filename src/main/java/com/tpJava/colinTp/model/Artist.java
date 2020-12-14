@@ -8,11 +8,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "artist")
-@JsonIgnoreProperties("artist")
 public class Artist {
 
     //attribut
     @OneToMany(mappedBy = "artist")
+    @JsonIgnoreProperties("artist")
     //albums
     private List<Album> albums;
 

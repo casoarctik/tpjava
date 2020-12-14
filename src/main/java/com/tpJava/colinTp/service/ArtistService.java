@@ -36,6 +36,9 @@ public class ArtistService {
     //find artist in search bar
     public List<Artist> findByNameWord(String name){
         List<Artist> artistList = artistRepository.findByNameWord(name);
+        if (artistList.isEmpty()){
+            throw new EntityNotFoundException("La recherche n'a donné aucun résultat");
+        }
         return artistList;
     }
 
@@ -43,9 +46,16 @@ public class ArtistService {
     //delete artist
     public void deleteArtist(Integer id){
         List<Album> albumList = albumRepository.findByArtistId(id);
+        if (artistRepository.findById(id).isEmpty()){
+            throw new EntityNotFoundException("Echec de l'annulation, l'artiste est introuvable");
+        }
         //delete albums of the artist to delete
-        for (Album album : albumList){
-            albumRepository.deleteById(album.getId());
+        if (albumList.isEmpty()){
+            throw new EntityNotFoundException("l'artiste n'a pas d'albums à supprimer");
+        }else{
+            for (Album album : albumList){
+                albumRepository.deleteById(album.getId());
+            }
         }
         artistRepository.deleteById(id);
     }
@@ -53,13 +63,16 @@ public class ArtistService {
     //add artist
     public Artist addArtist(Artist artist){
         if (artistRepository.findByName(artist.getName()) != null){
-            throw new EntityExistsException("Cet artist est déjà renseigné");
+            throw new EntityExistsException("Cet artiste est déjà renseigné");
         }
         return artistRepository.save(artist);
     }
 
     //update artist
     public Artist updateArtiste(Artist artist){
+        if (artistRepository.findById(artist.getId()).isEmpty()){
+            throw new EntityNotFoundException("Echec de la modification, cet artiste est introuvable");
+        }
         return artistRepository.save(artist);
     }
 

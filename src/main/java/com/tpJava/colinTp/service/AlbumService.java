@@ -20,6 +20,9 @@ public class AlbumService {
 
     //delete album
     public void deleteAlbum(Integer id) {
+        if (albumRepository.findById(id).isEmpty()){
+            throw new EntityNotFoundException("Echec de la suppression, l'album est introuvable");
+        }
         albumRepository.deleteById(id);
     }
 
@@ -29,7 +32,7 @@ public class AlbumService {
             throw new EntityExistsException("Cet album existe déjà");
         }
         if (artistRepository.findByName(album.getArtist().getName()) == null){
-            throw new EntityNotFoundException("Cet artiste n'existe pas");
+            throw new EntityNotFoundException("l'artiste auquel vous voulez ajouter un album n'existe pas");
         }
         return albumRepository.save(album);
     }
